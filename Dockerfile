@@ -1,4 +1,5 @@
-FROM webdevops/php-apache:5.4
+FROM php:5.4-apache
 
 COPY . /var/www/html/
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 EXPOSE 80
