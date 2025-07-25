@@ -1,4 +1,4 @@
-FROM quatrani/php:5.3-apache
+FROM nibrev/php-5.3-apache
 
 COPY . /var/www/html/
 
