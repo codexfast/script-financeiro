@@ -4,12 +4,10 @@ error_reporting(0);
 ini_set('display_errors', '0');
 
 // Connection Database
-
-$dbuser="USUARIOCPANEL_USUARIOBANCO";		 		//USUARIO MYSQL
-$dbpassword="SENHA"; 			//SENHA DO USUARIO
-$dbname="USUARIOCPANEL_BANCO"; 	//NOME DO BANCO DE DADOS
-$dbhost="localhost";		//SERVIDOR MYSQL, GERALMENTE E LOCALHOST, MAS PODE MUDAR DEPENDENDO DA HOSPEDAGEM
-
+$dbuser="ferrag82_admin";		 		//USUARIO MYSQL
+$dbpassword="jIszTMdK)U[S"; 			//SENHA DO USUARIO
+$dbname="ferrag82_financeiro"; 	//NOME DO BANCO DE DADOS
+$dbhost="50.116.112.117";		//SERVIDOR MYSQL, GERALMENTE E LOCALHOST, MAS PODE MUDAR DEPENDENDO DA HOSPEDAGEM
 //Connect
 $mysqli = new mysqli($dbhost, $dbuser, $dbpassword, $dbname);
 if (mysqli_connect_errno()) {
