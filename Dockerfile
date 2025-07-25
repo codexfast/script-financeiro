@@ -1,10 +1,8 @@
-# Usa a imagem do PHP 7.4 com Apache
 FROM php:7.4-apache
 
-# Mantenedor
 LABEL maintainer="seu-email@exemplo.com"
 
-# Instala dependências para compilar extensões
+# Instala dependências
 RUN apt-get update && apt-get install -y \
     libmcrypt-dev \
     gcc \
@@ -13,24 +11,24 @@ RUN apt-get update && apt-get install -y \
     autoconf \
     && rm -rf /var/lib/apt/lists/*
 
-# Instala as extensões PHP
+# Instala extensões PHP
 RUN docker-php-ext-install mysqli pdo pdo_mysql
+RUN pecl install mcrypt-1.0.4 && docker-php-ext-enable mcrypt
 
-# Instala mcrypt via PECL
-RUN pecl install mcrypt-1.0.4 \
-    && docker-php-ext-enable mcrypt
-
-# Habilita o módulo do Apache para reescrita (útil para .htaccess)
+# Habilita rewrite e permissão para .htaccess
 RUN a2enmod rewrite
 
-# Diretório raiz do Apache
-WORKDIR /var/www/html
+# Copia arquivos do site
+COPY . /var/www/html/
 
-# Copia arquivos PHP (ex: index.php) - opcional
-# COPY . /var/www/html/
+# Corrige permissões
+RUN chown -R www-data:www-data /var/www/html && \
+    chmod -R 755 /var/www/html
 
-# Expõe a porta 80
+# Permite .htaccess
+RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
+
+# Expõe porta 80
 EXPOSE 80
 
-# O Apache já é o CMD padrão da imagem, mas deixamos explícito
 CMD ["apache2-foreground"]
